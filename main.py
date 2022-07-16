@@ -1,13 +1,18 @@
 import random
 
+from rich import print
+from rich.console import Console
+
 from constants import GAME_CHOICES, INTRO, RULES, scoreboard
+
+console = Console()
 
 
 def get_user_choice():
     """get and validate player input, recursively"""
     user_input = input("Rock paper scissors shoot (r, p, s)\nYou: ")
     if user_input not in GAME_CHOICES:
-        print("Please enter a valid choice. choose between r, p, s.")
+        print("[bold blue]Please enter a valid choice. choose between r, p, s.[/bold blue]")
         return get_user_choice()
     return user_input
 
@@ -40,16 +45,18 @@ def update_scoreboard(result):
     """
     if result["user"] == 3:
         scoreboard["user"] += 1
-        msg = "You"
+        msg = "You :)"
+        text_color = "green"
     else:
         scoreboard["system"] += 1
-        msg = "System"
+        msg = "System :("
+        text_color = "red"
 
-    print("#" * 34)
-    print("##", f'You: {scoreboard["user"]}'.ljust(28), "##")
-    print("##", f'System: {scoreboard["system"]}'.ljust(28), "##")
-    print("##", f"This round's winner: {msg}".ljust(28), "##")
-    print("#" * 34)
+    console.print("#" * 42)
+    console.print("##", f'You: {scoreboard["user"]}'.ljust(36), "##")
+    console.print("##", f'System: {scoreboard["system"]}'.ljust(36), "##")
+    console.print("##", f"This round's winner: {msg}".ljust(36), "##", style=text_color)
+    console.print("#" * 42)
 
 
 def play():
@@ -61,14 +68,17 @@ def play():
         winner = find_winner(user_choice, system_choice)
 
         if winner == user_choice:
-            msg = "You win :)"
+            msg = f"You win :)"
             result["user"] += 1
+            text_color = "green"
         elif winner == system_choice:
-            msg = "You lose :("
+            msg = f"You lose :)"
             result["system"] += 1
+            text_color = "red"
         else:
             msg = "Draw"
-        print(f"System: {system_choice}\nResult: {msg}\n")
+            text_color = "gray"
+        console.print(f"System: {system_choice}\nResult: [bold {text_color}]{msg}[bold /{text_color}]\n")
 
     update_scoreboard(result)
 
@@ -76,12 +86,12 @@ def play():
     if play_again == "y":
         print()
         return play()
-    print("Hope you enjoyed the game!")
+    console.print("Hope you enjoyed the game!", style="bold green")
 
 
 def main():
     """Main function to play the game"""
-    print(INTRO)
+    console.print(INTRO)
 
     play()
 
