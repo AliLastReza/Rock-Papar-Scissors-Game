@@ -28,9 +28,9 @@ python main.py
 Read intro:
 
 > Hello, and welcome to the Rock Paper Scissors Game!
-The game is simple, you can choose between rock, paper and scissors.
-Every time you and computer will choose one of these three.
-Enter 'r' for 'rock', 'p' for 'paper' or 's' for 'scissors'.
+> The game is simple, you can choose between rock, paper and scissors.
+> Every time you and computer will choose one of these three.
+> Enter 'r' for 'rock', 'p' for 'paper' or 's' for 'scissors'.
 >
 > Ok, let's start the game!
 
