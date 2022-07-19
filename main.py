@@ -10,7 +10,8 @@ console = Console()
 
 def get_user_choice():
     """get and validate player input, recursively"""
-    user_input = input("Rock paper scissors shoot (r, p, s)\nYou: ")
+    user_input = input("Rock paper scissors shoot (Choices: r, p, s)\nYou: ")
+    user_input = user_input.lower()
     if user_input not in GAME_CHOICES:
         print("[bold blue]Please enter a valid choice. choose between r, p, s.[/bold blue]")
         return get_user_choice()
@@ -72,7 +73,7 @@ def play():
             result["user"] += 1
             text_color = "green"
         elif winner == system_choice:
-            msg = f"You lose :)"
+            msg = f"You lose :("
             result["system"] += 1
             text_color = "red"
         else:
@@ -83,7 +84,7 @@ def play():
     update_scoreboard(result)
 
     play_again = input("Do you wanna play again? (y/n) ")
-    if play_again == "y":
+    if play_again.lower() == "y":
         print()
         return play()
     console.print("Hope you enjoyed the game!", style="bold green")
